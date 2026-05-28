@@ -1,0 +1,33 @@
+name: CI for Python
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        # Utilizar python
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      #  Usar linter y coverage
+      - name: Instalar Linter y Coverage
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint pytest pytest-cov
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      # LINT
+      - name: Linting
+        run: |
+          pylint main.py test.py
+      # 6. Coverage
+      - name: Tests + Coverage
+        run: |
+          pytest --cov=. test.py
