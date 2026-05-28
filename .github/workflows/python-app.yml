@@ -27,7 +27,8 @@ jobs:
       - name: Linting
         run: |
           pylint main.py test.py --disable=C0114,C0115,C0116
-      # 6. Coverage
+      # Se quitan las reglas de docstring para evitar errores por falta de documentación en funciones y clases.
+      # 6. Coverage (Ya comprueba si pasan los tests)
       - name: Tests + Coverage
         run: |
           pytest --cov=. test.py
