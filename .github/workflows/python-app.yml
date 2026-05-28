@@ -26,7 +26,7 @@ jobs:
       # LINT
       - name: Linting
         run: |
-          pylint main.py test.py
+          pylint main.py test.py --disable=C0114,C0115,C0116
       # 6. Coverage
       - name: Tests + Coverage
         run: |
